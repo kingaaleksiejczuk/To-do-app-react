@@ -17,6 +17,7 @@ function TodoForm(props) {
         })
         setInput('');
     }
+
     return (
         <form onSubmit={handleSubmit} className='todo-form'>
             {props.edit ? (

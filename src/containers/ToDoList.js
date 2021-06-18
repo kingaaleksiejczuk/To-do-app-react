@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
 
@@ -21,6 +21,7 @@ function useLocalStorageState(key, defaultValue) {
 function ToDoList() {
 
     const [todos, setTodos] = useLocalStorageState("todos", []);
+    // const data = useFetch('https://jsonplaceholder.typicode.com/users/1/todos');
 
     const addTodo = todo => {
         if (!todo.text) {
@@ -60,7 +61,7 @@ function ToDoList() {
     };
 
     return (
-        <div>
+        <div className='todo-app'>
             <h1>To do list</h1>
             <TodoForm onSubmit={addTodo} />
             <Todo
@@ -70,5 +71,5 @@ function ToDoList() {
     );
 }
 
-export default ToDoList
+export default ToDoList;
 

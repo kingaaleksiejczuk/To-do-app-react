@@ -36,7 +36,6 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
 
     const submitUpdate = value => {
         updateTodo(state.edit.id, value)
-
         dispatch(
             {
                 type: 'edit',
@@ -53,25 +52,27 @@ function Todo({ todos, completeTodo, removeTodo, updateTodo }) {
     };
 
     return todos.map((todo, index) => (
-        <div
-            className={`todo-row ${todo.isComplete && 'complete'}`}
-            key={index}
-        >
-            <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-                {todo.text}
-            </div>
+        <>
+            <div
+                className={`todo-row ${todo.isComplete && 'complete'}`}
+                key={index}
+            >
+                <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+                    {todo.text}
+                </div>
 
-            <div className="icons">
-                <RiCloseCircleLine
-                    onClick={() => removeTodo(todo.id)}
-                    className='delete-icon'
-                />
-                <TiEdit
-                    onClick={() => dispatch({ type: 'edit', payload: { id: todo.id, value: todo.text } })}
-                    className='edit-icon'
-                />
+                <div className="icons">
+                    <RiCloseCircleLine
+                        onClick={() => removeTodo(todo.id)}
+                        className='delete-icon'
+                    />
+                    <TiEdit
+                        onClick={() => dispatch({ type: 'edit', payload: { id: todo.id, value: todo.text } })}
+                        className='edit-icon'
+                    />
+                </div>
             </div>
-        </div>
+        </>
     ));
 };
 

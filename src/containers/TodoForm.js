@@ -1,8 +1,25 @@
 import React, { useState } from 'react'
 
+function useLocalStorageState(key, defaultValue) {
+    const [value, setValue] = React.useState(() => {
+        const valueFromLocalStorage = window.localStorage.getItem(key);
+        if (valueFromLocalStorage) {
+            return JSON.parse(valueFromLocalStorage);
+        }
+        return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
+    });
+
+
+    React.useEffect(() => {
+        window.localStorage.setItem(key, JSON.stringify(value));
+    }, [value, key]);
+    return [value, setValue];
+}
+
 function TodoForm(props) {
 
     const [input, setInput] = useState('');
+    const [lastId, setLastId] = useLocalStorageState('lastId', 0);
 
     const handleChange = e => {
         setInput(e.target.value)
@@ -13,9 +30,10 @@ function TodoForm(props) {
 
         props.onSubmit({
             text: input,
-            id: Math.floor(Math.random() * 10000),
+            id: lastId
         })
         setInput('');
+        setLastId(lastId + 1);
     }
 
     return (

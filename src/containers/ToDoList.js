@@ -2,23 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
 import { useFetch } from "../components/CustomHooks";
-
-
-function useLocalStorageState(key, defaultValue) {
-    const [value, setValue] = React.useState(() => {
-        const valueFromLocalStorage = window.localStorage.getItem(key);
-        if (valueFromLocalStorage) {
-            return JSON.parse(valueFromLocalStorage);
-        }
-        return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
-    });
-
-
-    React.useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value));
-    }, [value, key]);
-    return [value, setValue];
-}
+import { useLocalStorageState } from "../components/LocalStorage";
 
 function ToDoList() {
 
